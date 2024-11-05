@@ -22,9 +22,12 @@ public class TransactionService {
     private UserService userService;
 
     @Autowired
+    private NotificationService notificationService;
+
+    @Autowired
     private RestTemplate restTemplate;
 
-    public void createTransaction(TransactionDTO transaction) throws Exception {
+    public Transaction createTransaction(TransactionDTO transaction) throws Exception {
         //validação
         User sender = this.userService.findUserById(transaction.sender_id());
         User receiver = this.userService.findUserById(transaction.receiver_id());
@@ -49,6 +52,10 @@ public class TransactionService {
         this.userService.saveUser(sender);
         this.userService.saveUser(receiver);
 
+        this.notificationService.sendNotification("Transação Sucesso", sender);
+        this.notificationService.sendNotification("Transação", receiver);
+
+        return newTransaction;
     }
     public boolean authorizeTransaction(User sender, BigDecimal value){
         ResponseEntity<Map> authorizationResponse = restTemplate.getForEntity("https://util.devi.tools/api/v2/authorize", Map.class);

@@ -39,8 +39,9 @@ public class User {
         this.name = data.name();
         this.lastName = data.lastName();
         this.email = data.email();
+        this.document = data.document();
         this.password = data.password();
-        this.balance = BigDecimal.ZERO;
+        this.balance = data.balance();
         this.userType = data.userType();
     }
 }
