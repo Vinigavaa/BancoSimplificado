@@ -22,4 +22,5 @@ public class TransactionController {
         Transaction newTransaction = this.transactionService.createTransaction(transaction);
         return new ResponseEntity<>(newTransaction, HttpStatus.OK);
     }
+
 }
