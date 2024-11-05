@@ -1,5 +1,6 @@
 package com.bancosimplificado.domain.user;
 
+import com.bancosimplificado.dtos.UserDTO;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -10,6 +11,7 @@ import java.math.BigDecimal;
 @Getter
 @Setter
 @AllArgsConstructor
+@NoArgsConstructor
 @EqualsAndHashCode(of = "id")
 public class User {
     @Id
@@ -32,4 +34,13 @@ public class User {
 
     @Enumerated(EnumType.STRING)
     private UserType userType;
+
+    public User(UserDTO data){
+        this.name = data.name();
+        this.lastName = data.lastName();
+        this.email = data.email();
+        this.password = data.password();
+        this.balance = BigDecimal.ZERO;
+        this.userType = data.userType();
+    }
 }
